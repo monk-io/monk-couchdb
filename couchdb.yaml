@@ -1,0 +1,36 @@
+namespace: couchdb
+
+
+couchdb:
+  defines: runnable
+  services:
+    hazelcast:
+      container: couchdb
+      port: 5984
+      protocol: tcp
+      host-port: 5984
+  metadata:
+    defines: metadata
+    name: couchdb
+    description: 
+    tags: 
+    website: 
+    source: 
+    publisher: "monk.io"
+    icon: 
+  containers:
+    defines: containers
+    hazelcast:
+      image: couchdb/couchdb
+      image-tag: <- `${couchdb-image-tag}`
+      ports:
+        - 5984:5984
+  variables:
+    root-user:
+      env: COUCHDB_USER
+      value: <- `${couchdb-user}`
+      type: string
+    root-password:
+      env: COUCHDB_PASSWORD
+      value: <- `${couchdb-password}`
+      type: string
