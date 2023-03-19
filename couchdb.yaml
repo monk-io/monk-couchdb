@@ -4,7 +4,7 @@ namespace: couchdb
 couchdb:
   defines: runnable
   services:
-    hazelcast:
+    couchdb:
       container: couchdb
       port: 5984
       protocol: tcp
@@ -20,11 +20,19 @@ couchdb:
     icon: 
   containers:
     defines: containers
-    hazelcast:
-      image: couchdb/couchdb
+    couchdb:
+      image: docker.io/library/couchdb
       image-tag: <- `${couchdb-image-tag}`
       ports:
         - 5984:5984
+      paths: 
+        - <- `${volume_local}:${volume_container}`
+  files:
+    default-config:
+      container: couchdb
+      mode: 0644
+      path: /opt/couchdb/etc/local.d/local.ini
+      contents: <<< files/local.ini             
   variables:
     root-user:
       env: COUCHDB_USER
@@ -34,3 +42,9 @@ couchdb:
       env: COUCHDB_PASSWORD
       value: <- `${couchdb-password}`
       type: string
+    volume_local:
+      type: string
+      value: <- `${monk-volume-path}/couchdb`
+    volume_container:
+      type: string
+      value: "/opt/couchdb/data"         
