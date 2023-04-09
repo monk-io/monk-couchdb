@@ -12,12 +12,14 @@ couchdb:
   metadata:
     defines: metadata
     name: couchdb
-    description: 
-    tags: 
-    website: 
-    source: 
-    publisher: "monk.io"
-    icon: 
+    description: |
+      Apache CouchDB is an open-source document-oriented NoSQL database, implemented in Erlang. 
+      
+      CouchDB uses multiple formats and protocols to store, transfer, and process its data. It uses JSON to store data, JavaScript as its query language using MapReduce, and HTTP for an API
+    tags: database, NoSQL
+    website: https://couchdb.apache.org
+    publisher: monk.io
+    icon: https://blog.desdelinux.net/wp-content/uploads/2020/03/CouchDB-logo-1.png
   containers:
     defines: containers
     couchdb:
