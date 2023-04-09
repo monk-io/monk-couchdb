@@ -13,9 +13,11 @@ couchdb:
     defines: metadata
     name: couchdb
     description: |
-      Apache CouchDB is an open-source document-oriented NoSQL database, implemented in Erlang. 
-      
-      CouchDB uses multiple formats and protocols to store, transfer, and process its data. It uses JSON to store data, JavaScript as its query language using MapReduce, and HTTP for an API
+      CouchDB is an open-source, document-oriented NoSQL (Not Only SQL) database management system developed by the Apache Software Foundation (ASF). 
+
+      It is designed to store, retrieve, and manage unstructured and semi-structured data in the form of documents, which are stored in a JSON format. 
+
+      CouchDB provides a distributed, fault-tolerant, and schema-free database solution that allows for easy replication and synchronization across multiple devices and servers.
     tags: database, NoSQL
     website: https://couchdb.apache.org
     publisher: monk.io
