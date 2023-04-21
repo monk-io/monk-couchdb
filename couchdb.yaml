@@ -1,5 +1,5 @@
+---
 namespace: couchdb
-
 
 couchdb:
   defines: runnable
@@ -14,9 +14,7 @@ couchdb:
     name: couchdb
     description: |
       CouchDB is an open-source, document-oriented NoSQL (Not Only SQL) database management system developed by the Apache Software Foundation (ASF). 
-
       It is designed to store, retrieve, and manage unstructured and semi-structured data in the form of documents, which are stored in a JSON format. 
-
       CouchDB provides a distributed, fault-tolerant, and schema-free database solution that allows for easy replication and synchronization across multiple devices and servers.
     tags: database, NoSQL
     website: https://couchdb.apache.org
@@ -29,14 +27,14 @@ couchdb:
       image-tag: <- `${couchdb-image-tag}`
       ports:
         - 5984:5984
-      paths: 
+      paths:
         - <- `${volume_local}:${volume_container}`
   files:
     default-config:
       container: couchdb
       mode: 0644
       path: /opt/couchdb/etc/local.d/local.ini
-      contents: <<< files/local.ini             
+      contents: <<< files/local.ini
   variables:
     root-user:
       env: COUCHDB_USER
@@ -51,4 +49,4 @@ couchdb:
       value: <- `${monk-volume-path}/couchdb`
     volume_container:
       type: string
-      value: "/opt/couchdb/data"         
+      value: /opt/couchdb/data

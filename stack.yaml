@@ -1,3 +1,4 @@
+---
 namespace: couchdb
 
 stack:
@@ -5,12 +6,6 @@ stack:
   runnable-list:
     - couchdb/couchdb
   variables:
-    couchdb-image-tag: "latest"  
-    couchdb-user: "admin"
-    couchdb-password: "password"
-
-
-
-
-
-
+    couchdb-image-tag: latest
+    couchdb-user: admin
+    couchdb-password: password

@@ -2,10 +2,9 @@
 
 This repository contains Monk.io template to deploy couchdb system either locally or on cloud of your choice (AWS, GCP, Azure, Digital Ocean).
 
-
 ## Start
 
-Set up Monk - https://docs.monk.io/docs/monk-in-10/
+[Set up Monk](https://docs.monk.io/docs/monk-in-10/)
 
 Start `monkd` and login.
 
@@ -15,7 +14,8 @@ monk login --email=<email> --password=<password>
 
 ## Clone Monk couchdb repository
 
-In order to load templates and change configuration simply use below commands: 
+In order to load templates and change configuration simply use below commands:
+
 ```bash
 git clone https://github.com/monk-io/monk-couchdb
 
@@ -39,27 +39,24 @@ The current variables can be found in `couchdb/variables` section
 
 ### Couchdb configuration files
 
-You can find a configuration file in `/files` directory in repository and can edit before the running kit. There is one configuration file which bind to the container while run couchdb-monk kit 
+You can find a configuration file in `/files` directory in repository and can edit before the running kit. There is one configuration file which bind to the container while run couchdb-monk kit
 
+| Configuration File | Format Used                           | Directory in Container                | Purpose                                                       |
+| ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------------------------------------- |
+| **local.ini**      | New style format (sysctl or ini-like) | ` /opt/couchdb/etc/local.d/local.ini` | Primary configuration file. Should be used for most settings. |
 
-| Configuration File	 | Format Used | Directory in Container | Purpose 
-|----------|-------------|------|---------|
-| **local.ini** | New style format (sysctl or ini-like)	 | ` /opt/couchdb/etc/local.d/local.ini` | Primary configuration file. Should be used for most settings. 
+## Template variables
 
-
-##  Template variables
-
-| Variable | Description | Type | Example |
-|----------|-------------|------|---------|
-| **couchdb-image-tag** | Couchdb image version. | string | 3.10-management |
-| **couchdb-user** | Couchdb root username. | string | admin |
-| **couchdb-password** | Couchdb root user password. | string | password |
-
+| Variable              | Description                 | Type   | Example         |
+| --------------------- | --------------------------- | ------ | --------------- |
+| **couchdb-image-tag** | Couchdb image version.      | string | 3.10-management |
+| **couchdb-user**      | Couchdb root username.      | string | admin           |
+| **couchdb-password**  | Couchdb root user password. | string | password        |
 
 ## Local Deployment
 
-First clone the repository and change the current directory to the monk-couchdb folder and simply run below command after launching `monkd`:
-:
+| First clone the repository and change the current directory to the monk-couchdb folder and simply run below command after launching `monkd`: |
+| :------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ```bash
 ➜  monk load MANIFEST
@@ -86,7 +83,6 @@ group     couchdb/stack    local       -        -
 ```
 
 This will start the entire couchdb/stack
-
 
 ## Cloud Deployment
 
@@ -129,6 +125,7 @@ Your cluster has been created successfully.
 ```
 
 Once cluster is ready execute the same command as for local and select your cluster (the option will appear automatically).
+
 ```bash
 ➜  monk load MANIFEST
 ✨ Loaded:
