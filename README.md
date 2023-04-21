@@ -43,7 +43,7 @@ You can find a configuration file in `/files` directory in repository and can ed
 
 | Configuration File | Format Used                           | Directory in Container                | Purpose                                                       |
 | ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------------------------------------- |
-| **local.ini**      | New style format (sysctl or ini-like) | ` /opt/couchdb/etc/local.d/local.ini` | Primary configuration file. Should be used for most settings. |
+| **local.ini**      | New style format (sysctl or ini-like) | `/opt/couchdb/etc/local.d/local.ini` | Primary configuration file. Should be used for most settings. |
 
 ## Template variables
 
