@@ -1,3 +1,3 @@
 REPO monk-couchdb
-LOAD couchdb.yaml stack.yaml
+LOAD couchdb.yaml
 RESOURCES files/local.ini

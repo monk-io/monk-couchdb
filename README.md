@@ -47,7 +47,7 @@ You can find a configuration file in `/files` directory in repository and can ed
 
 ## Template variables
 
-| Variable              | Description                 | Type   | Example         |
+| Variable              | Description                 | Type   | Defaults        |
 | --------------------- | --------------------------- | ------ | --------------- |
 | **couchdb-image-tag** | Couchdb image version.      | string | 3.10-management |
 | **couchdb-user**      | Couchdb root username.      | string | admin           |
