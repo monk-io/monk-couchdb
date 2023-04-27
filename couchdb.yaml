@@ -12,8 +12,8 @@ couchdb:
     name: couchdb
     shortname: CouchDB
     description: |
-      CouchDB is an open-source, document-oriented NoSQL (Not Only SQL) database management system developed by the Apache Software Foundation (ASF). 
-      It is designed to store, retrieve, and manage unstructured and semi-structured data in the form of documents, which are stored in a JSON format. 
+      CouchDB is an open-source, document-oriented NoSQL (Not Only SQL) database management system developed by the Apache Software Foundation (ASF).
+      It is designed to store, retrieve, and manage unstructured and semi-structured data in the form of documents, which are stored in a JSON format.
       CouchDB provides a distributed, fault-tolerant, and schema-free database solution that allows for easy replication and synchronization across multiple devices and servers.
     tags: database, NoSQL, JSON data format, distributed database, replication and synchronization
     website: https://couchdb.apache.org
@@ -31,7 +31,7 @@ couchdb:
   actions:
     create-db:
       description: Create initial database
-      code: exec("couchdb", "/bin/sh", "-c", `curl -X PUT http://${root-user}:${root-password}@127.0.0.1:5984/${initial-database}`)        
+      code: exec("couchdb", "/bin/sh", "-c", `curl -X PUT http://${root-user}:${root-password}@127.0.0.1:5984/${initial-database}`)
   files:
     default-config:
       container: couchdb
@@ -49,7 +49,7 @@ couchdb:
       type: string
     initial-database:
       value: monk
-      type: string      
+      type: string
     couchdb-image-tag:
       value: latest
       type: string
