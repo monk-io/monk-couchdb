@@ -26,6 +26,12 @@ couchdb:
       image-tag: <- `${couchdb-image-tag}`
       paths:
         - <- `${monk-volume-path}/couchdb:/opt/couchdb/data`
+      hooks:
+        container-started: create-db
+  actions:
+    create-db:
+      description: Create initial database
+      code: exec("couchdb", "/bin/sh", "-c", `curl -X PUT http://${root-user}:${root-password}@127.0.0.1:5984/${initial-database}`)        
   files:
     default-config:
       container: couchdb
@@ -41,6 +47,9 @@ couchdb:
       env: COUCHDB_PASSWORD
       value: password
       type: string
+    initial-database:
+      value: monk
+      type: string      
     couchdb-image-tag:
       value: latest
-      type: string      
+      type: string
