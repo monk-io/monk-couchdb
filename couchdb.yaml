@@ -1,5 +1,5 @@
+---
 namespace: couchdb
-
 
 couchdb:
   defines: runnable
@@ -10,45 +10,47 @@ couchdb:
       protocol: tcp
       host-port: 5984
   metadata:
-    defines: metadata
     name: couchdb
+    shortname: CouchDB
     description: |
-      CouchDB is an open-source, document-oriented NoSQL (Not Only SQL) database management system developed by the Apache Software Foundation (ASF). 
-
-      It is designed to store, retrieve, and manage unstructured and semi-structured data in the form of documents, which are stored in a JSON format. 
-
+      CouchDB is an open-source, document-oriented NoSQL (Not Only SQL) database management system developed by the Apache Software Foundation (ASF).
+      It is designed to store, retrieve, and manage unstructured and semi-structured data in the form of documents, which are stored in a JSON format.
       CouchDB provides a distributed, fault-tolerant, and schema-free database solution that allows for easy replication and synchronization across multiple devices and servers.
-    tags: database, NoSQL
+    tags: database, NoSQL, JSON data format, distributed database, replication and synchronization
     website: https://couchdb.apache.org
     publisher: monk.io
     icon: https://blog.desdelinux.net/wp-content/uploads/2020/03/CouchDB-logo-1.png
+    source: https://github.com/apache/couchdb
   containers:
-    defines: containers
     couchdb:
       image: docker.io/library/couchdb
       image-tag: <- `${couchdb-image-tag}`
-      ports:
-        - 5984:5984
-      paths: 
-        - <- `${volume_local}:${volume_container}`
+      paths:
+        - <- `${monk-volume-path}/couchdb:/opt/couchdb/data`
+      hooks:
+        container-started: create-db
+  actions:
+    create-db:
+      description: Create initial database
+      code: exec("couchdb", "/bin/sh", "-c", `curl -X PUT http://${root-user}:${root-password}@127.0.0.1:5984/${initial-database}`)
   files:
     default-config:
       container: couchdb
       mode: 0644
       path: /opt/couchdb/etc/local.d/local.ini
-      contents: <<< files/local.ini             
+      contents: <<< files/local.ini
   variables:
     root-user:
       env: COUCHDB_USER
-      value: <- `${couchdb-user}`
+      value: admin
       type: string
     root-password:
       env: COUCHDB_PASSWORD
-      value: <- `${couchdb-password}`
+      value: password
       type: string
-    volume_local:
+    initial-database:
+      value: monk
       type: string
-      value: <- `${monk-volume-path}/couchdb`
-    volume_container:
+    couchdb-image-tag:
+      value: latest
       type: string
-      value: "/opt/couchdb/data"         
