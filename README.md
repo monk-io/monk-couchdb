@@ -41,8 +41,8 @@ The current variables can be found in `couchdb/variables` section
 
 You can find a configuration file in `/files` directory in repository and can edit before the running kit. There is one configuration file which bind to the container while run couchdb-monk kit
 
-| Configuration File | Format Used                           | Directory in Container                | Purpose                                                       |
-| ------------------ | ------------------------------------- | ------------------------------------- | ------------------------------------------------------------- |
+| Configuration File | Format Used                           | Directory in Container               | Purpose                                                       |
+| ------------------ | ------------------------------------- | ------------------------------------ | ------------------------------------------------------------- |
 | **local.ini**      | New style format (sysctl or ini-like) | `/opt/couchdb/etc/local.d/local.ini` | Primary configuration file. Should be used for most settings. |
 
 ## Template variables
