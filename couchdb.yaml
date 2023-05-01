@@ -8,7 +8,6 @@ couchdb:
       container: couchdb
       port: 5984
       protocol: tcp
-      host-port: 5984
   metadata:
     name: couchdb
     shortname: CouchDB
