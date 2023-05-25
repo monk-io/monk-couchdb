@@ -15,7 +15,7 @@ couchdb:
       CouchDB is an open-source, document-oriented NoSQL (Not Only SQL) database management system developed by the Apache Software Foundation (ASF).
       It is designed to store, retrieve, and manage unstructured and semi-structured data in the form of documents, which are stored in a JSON format.
       CouchDB provides a distributed, fault-tolerant, and schema-free database solution that allows for easy replication and synchronization across multiple devices and servers.
-    tags: database, NoSQL, JSON data format, distributed database, replication and synchronization
+    tags: replication and synchronization, distributed database, nosql
     website: https://couchdb.apache.org
     publisher: monk.io
     icon: https://blog.desdelinux.net/wp-content/uploads/2020/03/CouchDB-logo-1.png
