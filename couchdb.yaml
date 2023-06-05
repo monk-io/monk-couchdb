@@ -23,7 +23,7 @@ couchdb:
   containers:
     couchdb:
       image: docker.io/library/couchdb
-      image-tag: <- `${couchdb-image-tag}`
+      image-tag: <- $couchdb-image-tag
       paths:
         - <- `${monk-volume-path}/couchdb:/opt/couchdb/data`
       hooks:
