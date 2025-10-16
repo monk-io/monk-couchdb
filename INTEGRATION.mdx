@@ -1,0 +1,145 @@
+---
+title: Apache CouchDB
+description: Ready-to-run Apache CouchDB container template you can run directly or inherit to integrate a document-oriented NoSQL database into your stack.
+primary_category: database
+tags: [couchdb, nosql, database, template, runnable, document, json]
+integration_type: template
+hosting_models: [self-hosted]
+website_url: https://couchdb.apache.org/
+docs_url: https://docs.couchdb.org/
+publisher: monk.io
+---
+
+## Overview
+
+This template provides a production‑ready Apache CouchDB instance as a Monk runnable. You can:
+
+- Run it directly to get a managed CouchDB container with sensible defaults
+- Inherit it in your own runnable to seamlessly add a document-oriented NoSQL database to your stack
+
+Apache CouchDB is an open-source document-oriented NoSQL database that uses JSON to store data, JavaScript as its query language using MapReduce, and HTTP for an API. It provides a web-based interface called Fauxton for database administration.
+
+## What this template manages
+
+- CouchDB container (`couchdb` image, configurable tag)
+- Network service on port 5984 (HTTP API)
+- Persistent volumes for data storage
+- Admin user authentication
+- Custom configuration file support
+
+## Quick start (run directly)
+
+1) Load templates
+
+```bash
+monk load MANIFEST
+```
+
+2) Run CouchDB with defaults
+
+```bash
+monk run couchdb/stack
+```
+
+3) Customize credentials (recommended via inheritance)
+
+Running directly uses the defaults defined in this template's `variables`. Secrets added with `monk secrets add` will not affect this runnable unless you inherit it and reference those secrets.
+
+- Preferred: inherit and replace variables with `secret("...")` as shown below.
+- Alternative: fork/clone and edit the `variables` in `couchdb/couchdb.yaml`, then `monk load MANIFEST` and run.
+
+Once started, connect to `http://localhost:5984` (or the runnable hostname inside Monk networks) using the configured credentials.
+
+## Configuration
+
+Key variables you can customize in this template:
+
+```yaml
+variables:
+  couchdb-image-tag: "latest"    # container image tag
+  couchdb-user: "admin"          # CouchDB root username (env: COUCHDB_USER)
+  couchdb-password: "password"   # CouchDB root user password (env: COUCHDB_PASSWORD)
+```
+Data is persisted under `${monk-volume-path}/couchdb` on the host.
+
+## Configuration files
+
+You can find a configuration file in `/files` directory. The `local.ini` file can be edited before running the template.
+
+| Configuration File | Directory in Container               | Purpose                                     |
+| ------------------ | ------------------------------------ | ------------------------------------------- |
+| **local.ini**      | `/opt/couchdb/etc/local.d/local.ini` | Primary configuration file for most settings |
+
+## Use by inheritance (recommended for apps)
+
+Inherit the CouchDB runnable in your application and declare a connection. Example:
+
+```yaml
+namespace: myapp
+db:
+  defines: runnable
+  inherits: couchdb/couchdb
+api:
+  defines: runnable
+  containers:
+    api:
+      image: myorg/api
+  connections:
+    database:
+      runnable: db
+      service: couchdb
+  variables:
+    database-host:
+      value: <- connection-hostname("database")
+    database-user:
+      value: <- secret("couchdb-user")
+    database-password:
+      value: <- secret("couchdb-password")
+```
+
+Then set the secrets once and run your app group:
+
+```bash
+monk secrets add -g couchdb-user="appuser"
+monk secrets add -g couchdb-password="STRONG_PASSWORD"
+monk run myapp/api
+```
+
+## Ports and connectivity
+
+- Service: `couchdb` on TCP port `5984`
+- From other runnables in the same process group, use `connection-hostname("<connection-name>")` to resolve the DB host.
+
+## Persistence and configuration
+
+- Data path: `${monk-volume-path}/couchdb:/opt/couchdb/data`
+- Config path: `/opt/couchdb/etc/local.d/local.ini`
+- CouchDB stores all databases and documents in the data directory
+
+## Web Interface
+
+CouchDB includes Fauxton, a built-in web interface for database administration. Access it at `http://localhost:5984/_utils/`.
+
+
+## Related templates
+
+- See other templates in this repository for complementary services
+- Combine with monitoring tools (`prometheus-grafana/`) for observability
+- Integrate with your application stack as needed
+
+## Troubleshooting
+
+- If you changed `couchdb-password` but the container has existing data, authentication may fail. Either reset the data volume or update the password inside the DB to match.
+- Ensure the host volumes are writable by the container user.
+- Check logs:
+
+```bash
+monk logs -l 500 -f local/couchdb/couchdb
+```
+
+- Verify CouchDB is responding:
+
+```bash
+curl http://localhost:5984/
+```
+
